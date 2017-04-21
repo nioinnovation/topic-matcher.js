@@ -1,19 +1,27 @@
 {
   "name": "nio-topic-matcher",
   "version": "0.0.0",
-  "description": "Topic matcher for nio communications",
+  "description": "nio communications topic matcher",
   "main": "dist/index.js",
   "scripts": {
+    "clean": "rimraf dist/",
+    "prebuild": "npm run clean",
     "build": "babel ./src --out-dir ./lib",
+    "prepublish": "npm run test && npm run build",
     "test": "mocha --compilers js:babel-register _test/",
     "test:watch": "mocha -w --compilers js:babel-register _test/"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nioinnovation/nio-scss"
+  },
+  "author": "J. Holmes <jholmes@n.io>",
   "license": "ISC",
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-preset-es2015": "^6.24.1",
     "chai": "^3.5.0",
-    "mocha": "^3.2.0"
+    "mocha": "^3.2.0",
+    "rimraf": "^2.5.4"
   }
 }
