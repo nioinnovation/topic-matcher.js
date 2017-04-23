@@ -1,6 +1,6 @@
 {
   "name": "@nio/topic-matcher",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "nio communications topic matcher",
   "main": "lib/index.js",
   "scripts": {
