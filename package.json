@@ -2,7 +2,7 @@
   "name": "@nio/topic-matcher",
   "version": "1.0.0",
   "description": "nio communications topic matcher",
-  "main": "dist/index.js",
+  "main": "lib/index.js",
   "scripts": {
     "clean": "rimraf dist/",
     "prebuild": "npm run clean",
