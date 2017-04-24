@@ -1,4 +1,4 @@
 // @flow
-export default (topic: string): boolean => (
+export default (topic: (string | String)): boolean => (
   (typeof topic === 'string') || (topic instanceof String)
 );
