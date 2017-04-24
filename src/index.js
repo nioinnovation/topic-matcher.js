@@ -1,15 +1,22 @@
 // @flow
-import defaultCompileFn from './compile';
+import memoize from 'memoizee';
+
 import isTopicTypeValid from './is-topic-type-valid';
+import compile from './compile';
 
 export type CompileFn = (string) => RegExp;
 export type MatcherFn = (string, string) => boolean;
 
-export const create = (compile: CompileFn): MatcherFn =>
+export { compile };
+
+export const createMatcher = (compiler: CompileFn = compile): MatcherFn =>
   (sub, pub) => (
     (!isTopicTypeValid(sub)) ? false
     : (!isTopicTypeValid(pub)) ? false
-    : compile(sub).test(`${pub}.`)
+    : compiler(sub).test(`${pub}.`)
   );
 
-export default create(defaultCompileFn);
+export default createMatcher(memoize(compile, {
+  primitive: true,
+  max: 128,
+}));
