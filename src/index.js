@@ -1,10 +1,15 @@
-import defaultCompile from './compile';
+// @flow
+import defaultCompileFn from './compile';
 import isTopicTypeValid from './is-topic-type-valid';
 
-export const create = compile => (sub, pub) => (
-  (!isTopicTypeValid(sub)) ? false
-  : (!isTopicTypeValid(pub)) ? false
-  : compile(sub).test(`${pub}.`)
-);
+export type CompileFn = (string) => RegExp;
+export type MatcherFn = (string, string) => boolean;
 
-export default create(defaultCompile);
+export const create = (compile: CompileFn): MatcherFn =>
+  (sub, pub) => (
+    (!isTopicTypeValid(sub)) ? false
+    : (!isTopicTypeValid(pub)) ? false
+    : compile(sub).test(`${pub}.`)
+  );
+
+export default create(defaultCompileFn);
