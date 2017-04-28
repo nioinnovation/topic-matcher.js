@@ -499,4 +499,12 @@ describe('topic matching algorithm', () => {
     expect(matches("A", [])).to.be.false;
     expect(matches([], "A")).to.be.false;
   });
+
+  it('should match env variables', () => {
+    const resolver = t => (t.replace(/\[\[([^\]]+)\]\]/g, "__$1__"));
+    expect(matches("a.[[FOO]]", "a.[[FOO]]", { resolver })).to.be.true;
+    expect(matches("a.*", "a.[[FOO]]", { resolver })).to.be.true;
+    expect(matches("a.*.c", "a.[[FOO]].c", { resolver })).to.be.true;
+    expect(matches("a.**.c", "a.[[FOO]].[[BAR]].[[BAZ]].c", { resolver })).to.be.true;
+  });
 });

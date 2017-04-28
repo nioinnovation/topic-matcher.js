@@ -9,12 +9,15 @@ export type MatcherFn = (string, string) => boolean;
 
 export { compile };
 
+const defaultResolver = t => t;
+
 export const createMatcher = (compiler: CompileFn = compile): MatcherFn =>
-  (sub, pub) => (
-    (!isTopicTypeValid(sub)) ? false
-    : (!isTopicTypeValid(pub)) ? false
-    : compiler(sub).test(`${pub}.`)
-  );
+  (sub, pub, options = {}) => {
+    const { resolver = defaultResolver } = options;
+    return (!isTopicTypeValid(sub)) ? false
+      : (!isTopicTypeValid(pub)) ? false
+      : compiler(resolver(sub)).test(`${resolver(pub)}.`);
+  };
 
 export default createMatcher(memoize(compile, {
   primitive: true,
