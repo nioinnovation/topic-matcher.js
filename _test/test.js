@@ -501,7 +501,7 @@ describe('topic matching algorithm', () => {
   });
 
   it('should match env variables', () => {
-    const resolver = t => (t.replace(/\[\[([^\]]+)\]\]/g, "__$1__"));
+    const resolver = t => t.replace(/\[\[([^\]]+)\]\]/g, '__$1__');
     expect(matches("a.[[FOO]]", "a.[[FOO]]", { resolver })).to.be.true;
     expect(matches("a.*", "a.[[FOO]]", { resolver })).to.be.true;
     expect(matches("a.*.c", "a.[[FOO]].c", { resolver })).to.be.true;
